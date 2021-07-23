@@ -49,12 +49,12 @@ console.log("Right Wrist X and Y = " + rightWristX + ", " + rightWristY);
     }
 }
 
-//Idea for this project: Change the functionality to this: 1 hand up (Be it right or left) means 1st song. Both hands up means the 2nd song.
+//Idea for this project: Change the functionality to this: Left hand up means 1st song. Both hands up means the 2nd song.
 
 function draw(){
     image(video, 0, 0, 600, 560);
 
-    if (leftWrist_accuracy > 0.2){
+    if(leftWrist_accuracy > 0.1){
 fill('red');
 stroke('red');
 circle(leftWristX, leftWristY, 20);
@@ -66,19 +66,21 @@ if(status_of_song1 == false){
     song1.play();
     document.getElementById("song_name_display").innerHTML = "New Year Countdown";
 }
-    } else if (rightWrist_accuracy > 0.2){
-        fill('blue');
-        stroke('blue');
-        circle(rightWristX, rightWristY, 20)
-        song2.stop();
+    } 
 
-        var status_of_song1 = song1.isPlaying();
+    if(rightWrist_accuracy > 0.05 && leftWrist_accuracy > 0.05){
+        fill('red');
+        stroke('red');
+        circle(leftWristX, leftWristY, 20);
+        circle(rightWristX, rightWristY, 20);
+        song1.stop();
 
-        if(status_of_song1 == false){
-            song1.play();
-            document.getElementById("song_name_display").innerHTML = "New Year Countdown";
+        var status_of_song2 = song2.isPlaying();
+
+        if(status_of_song2 == false){
+            song2.play();
+            document.getElementById("song_name_display").innerHTML = "Peter Pan Song";
         }
     }
-
 
 }
